@@ -1,0 +1,83 @@
+﻿@model IEnumerable<DeliveryWebApp.Models.CarrinhoModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Carrinho</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <h3>Seu carrinho está vazio. Adicione algo!</h3>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantidade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item.Preco)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/img/@item.Item.Imagem" style="width:50px;height:50px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                    <td>
+                        @String.Format("{0:c}", item.Item.Preco)
+                    </td>
+                    <td>
+                        <form asp-action="remover" method="post">
+                            <input name="id" type="hidden" value="@item.Id" />
+                            <input type="submit" class="btn btn-primary" value="Remover" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div class="row">
+    <div class="col-8">
+        <a asp-action="Index" asp-controller="Items">Continuar comprando</a>
+    </div>
+    <div class="col-2">
+        <h3>Total:</h3>
+    </div>
+    <div class="col-2">
+        <h4>@String.Format("{0:c}", ViewBag.Total)</h4>
+    </div>
+</div>
+
+
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <a asp-action="Finalizar" class="btn btn-primary">Finalizar Pedido</a>
+        </div>
+    </div>
+}

@@ -1,0 +1,77 @@
+﻿@model DeliveryWebApp.Data.Pedido
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h1>Detalhes do Pedido</h1>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.total)
+        </dt>
+        <dd class="col-sm-10">
+            @String.Format("{0:c}", Model.total)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataPedido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataPedido)
+        </dd>
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Item
+            </th>
+            <th>
+                Quantidade
+            </th>
+            <th>
+                Preço
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/@item.Item.Imagem" style="width:50px;height:50px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
+                    @String.Format("{0:c}", item.Item.Preco)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>
+

@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<DeliveryWebApp.Data.ItemCardapio>
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Cardápio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br/>
+<br/>
+
+<h1>Cardápio</h1>
+
+<p>
+    @* Este if faz verifica se o usuário está autenticado e se ele é um admim
+        Se o usuário não for um admim, o comando não é exibido na tela.*@
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-secondary">Criar um novo prato</a>
+    }
+</p>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-sm-6 col-md-3">
+            <div class="card">
+                <img class="card-img-top" style="max-height:200px;" src="~/img/@Html.DisplayFor(modelItem => item.Imagem)" alt="Card image cap">
+                
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@String.Format("{0:c}", item.Preco) </h6>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Descricao)</p>
+                <form asp-controller="Carrinho" asp-action="Adicionar" method="post">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Quantidade</span>
+                        </div>
+                        <input name="Id" type="hidden" value="@item.Id"/>
+                        <input name="Quantidade" type="text" class="form-control" value="1">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Adicionar ao pedido">
+
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" class="btn btn-secondary" asp-route-id="@item.Id">Editar</a>
+                    }
+                </form>
+            </div>
+            </div>
+        </div>
+    }
+</div>
