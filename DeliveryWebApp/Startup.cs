@@ -38,7 +38,7 @@ namespace DeliveryWebApp
             //neste projeto utilizados o LocalDB, conforme pode ser observado
             //no arquivo appsettings.json
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
 
 
