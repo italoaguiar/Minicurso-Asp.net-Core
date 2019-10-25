@@ -23,6 +23,7 @@ namespace DeliveryWebApp.Controllers
         {
             List<int> list = new List<int>();
 
+
             for(int i = a; i < b; i++)
             {
                 if(i%2 == 0)
@@ -30,9 +31,7 @@ namespace DeliveryWebApp.Controllers
                     list.Add(i);
                 }
             }
-
             return list;
         }
     }
-
 }
