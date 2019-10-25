@@ -28,7 +28,7 @@ namespace DeliveryWebApp.Controllers
             return await _context.ItemsCardapio
                 .Where(x => x.Nome.Contains("Bacon") && x.Preco < 20)
                 .Take(5)
-                .ToList();
+                .ToListAsync();
 
         }
 
