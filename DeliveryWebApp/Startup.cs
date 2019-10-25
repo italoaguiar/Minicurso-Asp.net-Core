@@ -129,13 +129,13 @@ namespace DeliveryWebApp
 
             //cria um usuário administrador padrão
             //a senha pode ser mudada no formulário padrão do site
-            if (userManager.FindByNameAsync("admin@meusite.com").Result == null)
+            if (userManager.FindByNameAsync("bruno@meusite.com").Result == null)
             {
                 //cria um objeto que representa um novo usuário
                 IdentityUser user = new IdentityUser
                 {
-                    UserName = "admin@meusite.com",
-                    Email = "admin@meusite.com"
+                    UserName = "bruno@meusite.com",
+                    Email = "bruno@meusite.com"
                 };
 
                 //registra o novo usuário no banco de dados e atribui uma senha para ele
@@ -147,6 +147,8 @@ namespace DeliveryWebApp
                     userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }
+
+
         }
     }
 }
