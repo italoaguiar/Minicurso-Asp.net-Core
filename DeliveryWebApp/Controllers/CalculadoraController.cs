@@ -17,11 +17,14 @@ namespace DeliveryWebApp.Controllers
             return a + b;
         }
 
+
         [HttpGet("ParesEntre/{a}/{b}")]
         public ActionResult<List<int>> ParesEntre(int a, int b)
         {
             List<int> list = new List<int>();
-            for(int i = 0; i<b; i++)
+
+
+            for(int i = a; i < b; i++)
             {
                 if(i%2 == 0)
                 {
@@ -30,6 +33,5 @@ namespace DeliveryWebApp.Controllers
             }
             return list;
         }
-
     }
 }
